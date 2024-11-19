@@ -6,7 +6,7 @@ const Form = {
     (field: string, message: string): ValidationRule =>
     (request: Request) => {
       return {
-        valid: !!request.body[field],
+        isValid: !!request.body[field],
         data: request.body[field],
         details: {
           field,

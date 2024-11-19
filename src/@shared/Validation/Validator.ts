@@ -1,16 +1,14 @@
 import ImplementError from "@/@core/error-handler/ImplementError";
 import MandatoryParameterError from "@/@core/error-handler/MandatoryParameterError";
-import { getResponseInformations } from "./StatusCode";
 import { NextFunction, Response } from "express";
 import { ValidatedRequest, ValidationRule } from "@/@types";
+import { Errors } from "../Responses/ErrorList";
 
 class Validator<T> {
   request: ValidatedRequest<T> = null;
   response: Response = null;
   next: NextFunction = null;
-  rules = [];
   errors = [];
-  validationError = null;
 
   constructor(
     request: ValidatedRequest<T>,
@@ -37,17 +35,17 @@ class Validator<T> {
     this.next = next;
   }
 
-  defineRules(...rules: ValidationRule[]) {
-    this.rules = [...this.rules, ...rules];
+  rules(): ValidationRule[] {
+    throw new ImplementError(
+      "A class which extends 'Validator' must implement 'rules' method"
+    );
   }
 
-  validate(validationError: string) {
-    this.validationError = validationError;
-
+  validate(rules: ValidationRule[]) {
     let datas = {};
-    for (let rule of this.rules) {
+    for (let rule of rules) {
       let validation = rule(this.request);
-      if (!validation.valid) {
+      if (!validation.isValid) {
         this.errors.push(validation.details);
       } else {
         datas[validation.details.field] = validation.data;
@@ -67,20 +65,21 @@ class Validator<T> {
   }
 
   check() {
-    throw new ImplementError(
-      "A class which extends 'Validator' must implement 'check' method"
-    );
+    this.validate(this.rules());
   }
 
   createResponse() {
-    let informations = getResponseInformations(this.validationError);
+    let error = Errors.FORM_VALIDATION_ERROR;
 
     let responsePayload = {
-      ...informations.response,
+      ...error,
       errors: this.errors,
     };
 
-    this.response.status(informations.httpStatus).json(responsePayload);
+    this.response.status(error.http_status).json({
+      ...responsePayload,
+      status: "error",
+    });
   }
 }
 

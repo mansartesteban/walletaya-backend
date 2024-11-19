@@ -7,12 +7,11 @@ class LoginValidator<T> extends Validator<T> {
     super(req, res, next);
   }
 
-  check() {
-    this.defineRules(
+  rules() {
+    return [
       ValidationRules.Form.REQUIRED("email", "L'adresse mail est requise"),
-      ValidationRules.Form.REQUIRED("password", "Le mot de passe est requis")
-    );
-    this.validate("FORM_VALIDATION_ERROR");
+      ValidationRules.Form.REQUIRED("password", "Le mot de passe est requis"),
+    ];
   }
 }
 
