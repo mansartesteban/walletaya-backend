@@ -3,7 +3,7 @@ import ErrorResponse from "@/@shared/Responses/ErrorResponse";
 
 class UserAlreadyExistsResponse extends ErrorResponse {
   constructor() {
-    super(Errors.UserAlreadyExists);
+    super(Errors.USER_ALREADY_EXISTS);
   }
 }
 
