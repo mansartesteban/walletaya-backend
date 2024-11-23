@@ -1,8 +1,8 @@
-import ImplementError from "@/@core/error-handler/ImplementError";
-import MandatoryParameterError from "@/@core/error-handler/MandatoryParameterError";
+import ImplementError from "@core/ErrorHandler/ImplementError";
+import MandatoryParameterError from "@core/ErrorHandler/MandatoryParameterError";
 import { NextFunction, Response } from "express";
-import { ValidatedRequest, ValidationRule } from "@/@types";
-import { Errors } from "../Responses/ErrorList";
+import { ValidatedRequest, ValidationRule } from "@types";
+import { Errors } from "@shared/Responses/ErrorList";
 
 class Validator<T> {
   request: ValidatedRequest<T> = null;

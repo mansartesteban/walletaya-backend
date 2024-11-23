@@ -1,10 +1,11 @@
 import bcrypt from "bcryptjs";
-import UserModel from "@/users/UserModel";
-import Logger from "@/@core/Logger";
+import UserModel from "@/Users/UserModel";
+import Logger from "@core/Logger";
 import jwt from "jsonwebtoken";
-import { TUser } from "@/@types";
-import InvalidCredentialsResponse from "./Errors/InvalidCredentialsResponse";
-import UserAlreadyExistsResponse from "./Errors/UserAlreadyExistsResponse";
+import { TUser } from "@types";
+import InvalidCredentialsResponse from "../@shared/Responses/Errors/InvalidCredentialsResponse";
+import UserAlreadyExistsResponse from "../@shared/Responses/Errors/UserAlreadyExistsResponse";
+import { Request, Response, NextFunction } from "express";
 
 class AuthService {
   static async login(rawUser: TUser) {
@@ -44,6 +45,21 @@ class AuthService {
     Logger.log("newUser", newUser);
     // await newUser.save();
     return newUser;
+  }
+
+  static isAuthenticated(req: Request, res: Response, next: NextFunction) {
+    const token = req.headers["authorization"];
+    if (!token) {
+      res.status(401).json({ error: "Unauthorized" });
+    }
+
+    jwt.verify(token, "secret", (err, decoded) => {
+      if (err) {
+        res.status(401).json({ error: "Unauthorized" });
+      }
+      // req.user = decoded;
+      next();
+    });
   }
 }
 

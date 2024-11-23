@@ -1,7 +1,7 @@
 import { Application } from "express";
 
-import AuthRouting from "@/auth/AuthRouting";
-import UserRouting from "@/users/UserRouting";
+import AuthRouting from "@/Auth/AuthRouting";
+import UserRouting from "@/Users/UserRouting";
 
 const Routing = (app: Application) => {
   UserRouting(app);

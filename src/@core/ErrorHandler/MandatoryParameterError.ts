@@ -1,4 +1,4 @@
-import HttpStatus from "@/@core/HttpStatus";
+import HttpStatus from "@core/HttpStatus";
 
 class MandatoryParameterError extends Error {
   constructor(message: string) {

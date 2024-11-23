@@ -1,4 +1,4 @@
-import { TErrorResponse } from "@/@types";
+import { TErrorResponse } from "@types";
 
 class ErrorResponse {
   error_code: string;

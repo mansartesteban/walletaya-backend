@@ -1,5 +1,5 @@
-import { Errors } from "@/@shared/Responses/ErrorList";
-import ErrorResponse from "@/@shared/Responses/ErrorResponse";
+import { Errors } from "@shared/Responses/ErrorList";
+import ErrorResponse from "@shared/Responses/ErrorResponse";
 
 class NotFoundUserResponse extends ErrorResponse {
   constructor() {

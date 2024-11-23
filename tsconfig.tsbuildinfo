@@ -6309,7 +6309,7 @@
         {
           "start": 51,
           "length": 16,
-          "messageText": "Cannot find module '@/@core/Logger' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/Logger' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         },
@@ -6410,7 +6410,7 @@
         {
           "start": 23,
           "length": 20,
-          "messageText": "Cannot find module '@/@core/HttpStatus' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/HttpStatus' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         }
@@ -6422,7 +6422,7 @@
         {
           "start": 23,
           "length": 20,
-          "messageText": "Cannot find module '@/@core/HttpStatus' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/HttpStatus' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         },
@@ -6577,7 +6577,7 @@
         {
           "start": 23,
           "length": 20,
-          "messageText": "Cannot find module '@/@core/HttpStatus' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/HttpStatus' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         }
@@ -6634,14 +6634,14 @@
         {
           "start": 27,
           "length": 38,
-          "messageText": "Cannot find module '@/@core/error-handler/ImplementError' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/error-handler/ImplementError' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         },
         {
           "start": 104,
           "length": 47,
-          "messageText": "Cannot find module '@/@core/error-handler/MandatoryParameterError' or its corresponding type declarations.",
+          "messageText": "Cannot find module '@core/error-handler/MandatoryParameterError' or its corresponding type declarations.",
           "category": 1,
           "code": 2307
         },

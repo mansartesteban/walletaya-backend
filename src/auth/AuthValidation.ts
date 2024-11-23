@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import LoginValidator from "./LoginValidator";
-import RegisterValidator from "./RegisterValidator";
+import LoginValidator from "./Validators/LoginValidator";
+import RegisterValidator from "./Validators/RegisterValidator";
 
 class AuthValidation {
   static LoginValidation(req: Request, res: Response, next: NextFunction) {

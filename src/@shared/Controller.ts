@@ -1,16 +1,20 @@
 import { type Response, type Request } from "express";
 
-import ErrorResponse from "@/@shared/Responses/ErrorResponse";
-import Logger from "@/@core/Logger";
+import ErrorResponse from "@shared/Responses/ErrorResponse";
+import Logger from "@core/Logger";
+import { ValidatedRequest } from "@types";
 
 class Controller {
   static async process<T>(
-    req: Request,
+    req: ValidatedRequest<T>,
     res: Response,
-    promise: Promise<T | ErrorResponse>
+    callback: Function
+    // promise: Promise<T | ErrorResponse>
   ) {
     try {
-      let returnedDatasFromService = await promise;
+      // let returnedDatasFromService = await promise;
+      console.log("callbk", callback);
+      let returnedDatasFromService = await callback(req.validatedData);
       if (returnedDatasFromService instanceof ErrorResponse) {
         res.status(returnedDatasFromService.httpStatus).json({
           ...returnedDatasFromService,

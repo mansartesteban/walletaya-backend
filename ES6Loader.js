@@ -31,29 +31,57 @@ export async function resolve(specifier, context, nextResolve) {
   )
     return defaultResolutionResult;
 
-  if (specifier.startsWith("@/")) {
-    specifier =
-      "./" +
-      posix.join(
-        toPosix(
-          relative(
-            dirname(fileURLToPath(context.parentURL)),
-            resolvePath("src")
-          )
-        ), // TODO: Do this according to project's "tsconfig.json"
-        posix.relative("@", specifier)
-      );
-    // Retry default-resolution with new resolved `specifier`:
-    const defaultResolutionResult = await nextResolve(specifier, context).catch(
-      () => {}
-    );
-    // If module found and its format successfully detected use: `defaultResolutionResult`
-    if (
-      defaultResolutionResult &&
-      !("format" in defaultResolutionResult && !defaultResolutionResult.format)
-    )
-      return defaultResolutionResult;
+  // Import tsconfig.json if exists
+  let tsconfig = await import("./tsconfig.json");
+  if (tsconfig) {
+    // TsConfig has aliases configured
+    if (tsconfig.default?.compilerOptions?.paths) {
+      let aliases = tsconfig.default?.compilerOptions?.paths;
+
+      // Loop through all aliases
+      for (let alias of Object.entries(aliases)) {
+        let aliasToCompare = alias[0];
+
+        // Removes the "/*" for easier comparison
+        if (aliasToCompare.endsWith("/*")) {
+          aliasToCompare = aliasToCompare.substring(
+            0,
+            aliasToCompare.length - 2
+          );
+        }
+
+        // If the imported file matchs the alias
+        if (specifier.startsWith(aliasToCompare)) {
+          let replacingPath = alias[1][0];
+
+          // Removes the "/*" for easier comparison
+          if (replacingPath.endsWith("/*")) {
+            replacingPath = replacingPath.substring(
+              0,
+              replacingPath.length - 2
+            );
+          }
+
+          // Finally replace the original import path by the alias pointing one
+          specifier =
+            "./" +
+            posix.join(
+              toPosix(
+                relative(
+                  dirname(fileURLToPath(context.parentURL)),
+                  resolvePath(replacingPath)
+                )
+              ),
+              posix.relative(aliasToCompare, specifier)
+            );
+
+          // And quit the loop
+          break;
+        }
+      }
+    }
   }
+  // }
 
   const originalExt = extname(specifier);
   let resolvedExt = "";

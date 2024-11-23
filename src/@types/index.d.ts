@@ -1,5 +1,4 @@
 import { Request } from "express";
-import { Interface } from "readline";
 
 export type ValidationInformation = {
   isValid: boolean;

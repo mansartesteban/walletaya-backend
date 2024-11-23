@@ -2,5 +2,5 @@
   "ext": "ts",
   "ignore": ["node_modules"],
   "watch": ["src"],
-  "exec": "tsc --noEmit && node --import ./ES6Loader.js src/index.ts"
+  "exec": "tsc && node --import ./ES6Loader.js src/index.ts"
 }

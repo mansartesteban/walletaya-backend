@@ -1,5 +1,5 @@
-import HttpStatus from "@/@core/HttpStatus";
-import { TErrorResponse } from "@/@types";
+import HttpStatus from "@core/HttpStatus";
+import { TErrorResponse } from "@types";
 
 export const Errors: Record<string, TErrorResponse> = {
   UNKNOWN_ERROR: {

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { ValidationRule } from "@/@types";
+import { ValidationRule } from "@types";
 
 const Form = {
   REQUIRED:
